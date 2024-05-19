@@ -40,8 +40,11 @@ public class LoginActivity extends AppCompatActivity {
                 String username = txtUsername.getText().toString();
                 String password = txtPassword.getText().toString();
 
-                if (validateLogin(username, password)) {
+                Users loggedInUser = validateLogin(username, password);
+                if (loggedInUser != null) {
                     Intent intent = new Intent(LoginActivity.this, RaceActivity.class);
+                    intent.putExtra("USERNAME", username);
+                    intent.putExtra("COINS", loggedInUser.getCoins());
                     startActivity(intent);
                     finish();
                 } else {
@@ -59,12 +62,20 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private boolean validateLogin(String username, String password) {
+//    private boolean validateLogin(String username, String password) {
+//        for (Users user : listUsers) {
+//            if (user.getUserName().equals(username) && user.getPassWord().equals(password)) {
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
+    private Users validateLogin(String username, String password) {
         for (Users user : listUsers) {
             if (user.getUserName().equals(username) && user.getPassWord().equals(password)) {
-                return true;
+                return user;
             }
         }
-        return false;
+        return null;
     }
 }
