@@ -16,6 +16,9 @@
             android:name=".LoginActivity"
             android:exported="true" />
         <activity
+            android:name=".RaceActivity"
+            android:exported="true" />
+        <activity
             android:name=".Loading"
             android:exported="true">
             <intent-filter>
