@@ -1,0 +1,4 @@
+<!-- res/drawable/layer_thumb.xml -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/lamborghini" android:width="100dp" android:height="35dp"/>
+</layer-list>

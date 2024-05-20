@@ -66,9 +66,45 @@
         </LinearLayout>
 
         <LinearLayout
+            android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:orientation="vertical"
+            android:padding="12dp"
+            android:background="#3ef"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="THE RACE TRACK"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:textColor="#EFA861"
+                />
+            <SeekBar
+                android:id="@+id/sbCar1"
+                android:layout_marginTop="10dp"
+                android:thumb="@drawable/lamboghini_thumb"
+                android:thumbOffset="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <SeekBar
+                android:id="@+id/sbCar2"
+                android:layout_marginTop="10dp"
+                android:thumb="@drawable/bugati_thumb"
+                android:thumbOffset="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <SeekBar
+                android:id="@+id/sbCar3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:thumb="@drawable/mustang_thumb"
+                android:thumbOffset="15dp" />
+
 
         </LinearLayout>
 
@@ -77,6 +113,15 @@
             android:layout_height="match_parent"
             android:layout_weight="1">
 
+
+            <Button
+                android:id="@+id/btnStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Start"
+                android:layout_gravity="center"
+                />
         </LinearLayout>
 
         <LinearLayout
