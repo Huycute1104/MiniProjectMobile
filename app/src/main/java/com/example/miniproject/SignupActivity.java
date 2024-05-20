@@ -3,7 +3,6 @@ package com.example.miniproject;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Patterns;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -17,7 +16,6 @@ import java.util.ArrayList;
 public class SignupActivity extends AppCompatActivity {
 
     private EditText txtUsername;
-    private EditText txtEmail;
     private EditText txtPassword;
     private EditText txtConfirmPassword;
     private Button btnSignup;
@@ -29,7 +27,6 @@ public class SignupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_signup);
 
         txtUsername = findViewById(R.id.txtUsername);
-        txtEmail = findViewById(R.id.txtEmail);
         txtPassword = findViewById(R.id.txtPassword);
         txtConfirmPassword = findViewById(R.id.txtConfirmPassword);
         btnSignup = findViewById(R.id.btnSignup);
@@ -52,13 +49,10 @@ public class SignupActivity extends AppCompatActivity {
 
     private boolean validateInput() {
         String username = txtUsername.getText().toString().trim();
-        String email = txtEmail.getText().toString().trim();
         String password = txtPassword.getText().toString().trim();
         String confirmPassword = txtConfirmPassword.getText().toString().trim();
 
         if (isEmptyField(username, txtUsername, "Username is required")) return false;
-        if (isEmptyField(email, txtEmail, "Email is required")) return false;
-        if (!isValidEmail(email)) return false;
         if (isEmptyField(password, txtPassword, "Password is required")) return false;
         if (!isValidPassword(password)) return false;
         if (isEmptyField(confirmPassword, txtConfirmPassword, "Confirm Password is required"))
@@ -68,7 +62,6 @@ public class SignupActivity extends AppCompatActivity {
             txtConfirmPassword.requestFocus();
             return false;
         }
-
         return true;
     }
 
@@ -79,15 +72,6 @@ public class SignupActivity extends AppCompatActivity {
             return true;
         }
         return false;
-    }
-
-    private boolean isValidEmail(String email) {
-        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            txtEmail.setError("Enter a valid email");
-            txtEmail.requestFocus();
-            return false;
-        }
-        return true;
     }
 
     private boolean isValidPassword(String password) {
