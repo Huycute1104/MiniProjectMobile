@@ -1,6 +1,7 @@
 package com.example.miniproject;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -29,10 +30,15 @@ public class LoginActivity extends AppCompatActivity {
         btnCreateAccount = findViewById(R.id.CreateAccountButton);
 
         listUsers = new ArrayList<>();
-        listUsers.add(new Users("huy", "123", 1000));
-        listUsers.add(new Users("tri", "123", 1000));
-        listUsers.add(new Users("phuoc", "123", 1000));
-        listUsers.add(new Users("nhat", "123", 1000));
+        listUsers.add(new Users("huy", "123", getCoinsForUser("huy")));
+        listUsers.add(new Users("tri", "123", getCoinsForUser("tri")));
+        listUsers.add(new Users("phuoc", "123", getCoinsForUser("phuoc")));
+        listUsers.add(new Users("nhat", "123", getCoinsForUser("nhat")));
+
+//        listUsers.add(new Users("huy", "123", 1000));
+//        listUsers.add(new Users("tri", "123", 1000));
+//        listUsers.add(new Users("phuoc", "123", 1000));
+//        listUsers.add(new Users("nhat", "123", 1000));
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,10 +76,21 @@ public class LoginActivity extends AppCompatActivity {
 //        }
 //        return false;
 //    }
+
+    private int getCoinsForUser(String username) {
+        SharedPreferences prefs = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        return prefs.getInt(getCoinsKey(username), 1000);
+    }
+
+    private String getCoinsKey(String username) {
+        return "COINS_" + username;
+    }
+
     private Users validateLogin(String username, String password) {
         for (Users user : listUsers) {
             if (user.getUserName().equals(username) && user.getPassWord().equals(password)) {
-                return user;
+                int coins = getCoinsForUser(username);
+                return new Users(username, password, coins);
             }
         }
         return null;
