@@ -62,6 +62,11 @@ public class SignupActivity extends AppCompatActivity {
             txtConfirmPassword.requestFocus();
             return false;
         }
+        if (existUser(username, txtUsername)) {
+            Toast.makeText(SignupActivity.this, "Username already exists", Toast.LENGTH_SHORT).show();
+            return false;
+
+        }
         return true;
     }
 
@@ -81,5 +86,15 @@ public class SignupActivity extends AppCompatActivity {
             return false;
         }
         return true;
+    }
+
+    private boolean existUser(String username, EditText field) {
+        for (Users user : listUsers) {
+            if (user.getUserName().equals(username)) {
+                field.requestFocus();
+                return true;
+            }
+        }
+        return false;
     }
 }
