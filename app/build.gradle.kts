@@ -40,4 +40,7 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+
+    implementation("nl.dionsegijn:konfetti-compose:2.0.4")
+    implementation("nl.dionsegijn:konfetti-xml:2.0.4")
 }
