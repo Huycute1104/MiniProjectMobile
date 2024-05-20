@@ -134,7 +134,6 @@ public class RaceActivity extends AppCompatActivity {
 
     private void init() {
         for (Car car : cars) {
-            // Make seekbars unable to be changed when touching
             car.getSeekBar().setOnTouchListener((v, event) -> true);
         }
 
