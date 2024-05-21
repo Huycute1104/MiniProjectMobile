@@ -12,13 +12,11 @@ public class Car {
     private CheckBox checkBox;
     private EditText etAmountForCar;
     private SeekBar seekBar;
-    private ImageView badgeImage;
 
-    public Car(String name, LinearLayout checkBoxContainer, CheckBox checkBox, EditText etAmountForCar, SeekBar seekBar, ImageView badgeImage) {
+    public Car(String name, LinearLayout checkBoxContainer, CheckBox checkBox, EditText etAmountForCar, SeekBar seekBar) {
         this.name = name;
         this.checkBoxContainer = checkBoxContainer;
         this.checkBox = checkBox;
-        this.badgeImage = badgeImage;
         this.seekBar = seekBar;
         this.etAmountForCar = etAmountForCar;
     }

@@ -76,7 +76,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="THE RACE TRACK"
+                android:text="Race"
                 android:textSize="16dp"
                 android:textStyle="bold"
                 android:textAlignment="center"
@@ -111,9 +111,130 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="12dp"
+                >
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/option1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <CheckBox
+                            android:id="@+id/cbCar1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <ImageView
+                            android:layout_marginLeft="-10dp"
+                            android:layout_width="70dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/lamborghini" />
+                    </LinearLayout>
+
+                    <EditText
+                        android:id="@+id/etAmountForCar1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="-10dp"
+                        android:hint="money"
+                        android:enabled="false"
+                        android:textSize="14dp"
+                        android:textAlignment="center"
+                        android:inputType="number"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/option2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <CheckBox
+                            android:id="@+id/cbCar2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <ImageView
+                            android:layout_marginLeft="-10dp"
+                            android:layout_width="70dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/bugati"
+                            />
+                    </LinearLayout>
+
+                    <EditText
+                        android:id="@+id/etAmountForCar2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="money"
+                        android:enabled="false"
+                        android:layout_marginTop="-10dp"
+                        android:textSize="14dp"
+                        android:textAlignment="center"
+                        android:inputType="number"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/option3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <CheckBox
+                            android:id="@+id/cbCar3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <ImageView
+                            android:layout_marginLeft="-10dp"
+                            android:layout_width="70dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/mustang"
+                            />
+                    </LinearLayout>
+
+                    <EditText
+                        android:id="@+id/etAmountForCar3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="money"
+                        android:enabled="false"
+                        android:layout_marginTop="-10dp"
+                        android:textSize="14dp"
+                        android:textAlignment="center"
+                        android:inputType="number"/>
+                </LinearLayout>
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_weight="1">
-
-
             <Button
                 android:id="@+id/btnStart"
                 android:layout_width="wrap_content"
@@ -122,13 +243,6 @@
                 android:text="Start"
                 android:layout_gravity="center"
                 />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
-
         </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

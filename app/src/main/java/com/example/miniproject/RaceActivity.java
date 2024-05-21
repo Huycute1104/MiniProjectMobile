@@ -7,11 +7,15 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,6 +38,8 @@ public class RaceActivity extends AppCompatActivity {
     private AlertDialog addCoinsDialog;
     Button btnLogout;
     Button btnAddmore;
+    private final String REQUIRE = "Require";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,13 +121,22 @@ public class RaceActivity extends AppCompatActivity {
         txtUsername = findViewById(R.id.txtUsername);
         btnStart = findViewById(R.id.btnStart);
 
+        LinearLayout option1 = findViewById(R.id.option1);
+        LinearLayout option2 = findViewById(R.id.option2);
+        LinearLayout option3 = findViewById(R.id.option3);
+        CheckBox cbCar1 = findViewById(R.id.cbCar1);
+        CheckBox cbCar2 = findViewById(R.id.cbCar2);
+        CheckBox cbCar3 = findViewById(R.id.cbCar3);
+        EditText etAmountForCar1 = findViewById(R.id.etAmountForCar1);
+        EditText etAmountForCar2 = findViewById(R.id.etAmountForCar2);
+        EditText etAmountForCar3 = findViewById(R.id.etAmountForCar3);
         SeekBar sbCar1 = findViewById(R.id.sbCar1);
         SeekBar sbCar2 = findViewById(R.id.sbCar2);
         SeekBar sbCar3 = findViewById(R.id.sbCar3);
         cars = new ArrayList<>();
-        cars.add(new Car("Car 1", sbCar1));
-        cars.add(new Car("Car 2", sbCar2));
-        cars.add(new Car("Car 3", sbCar3));
+        cars.add(new Car("Car 1", option1, cbCar1, etAmountForCar1, sbCar1));
+        cars.add(new Car("Car 2", option2, cbCar2, etAmountForCar2, sbCar2));
+        cars.add(new Car("Car 3", option3, cbCar3, etAmountForCar3, sbCar3));
     }
 
     private void animateProgression(int progress, int duration, SeekBar seekBar) {
@@ -133,8 +148,25 @@ public class RaceActivity extends AppCompatActivity {
     }
 
     private void init() {
+        Log.i("car amount", Integer.toString(cars.size()));
         for (Car car : cars) {
             car.getSeekBar().setOnTouchListener((v, event) -> true);
+            CheckBox checkBox = car.getCheckBox();
+            car.getCheckBoxContainer().setOnTouchListener((v, event) -> {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        checkBox.setChecked(!checkBox.isChecked());
+                        break;
+                }
+                return true;
+            });
+
+            checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                car.getEtAmountForCar().setEnabled(isChecked);
+                updateBtnStartEnabled();
+            });
         }
 
         btnStart.setOnClickListener(v -> {
@@ -143,6 +175,16 @@ public class RaceActivity extends AppCompatActivity {
                 return;
             }
 
+            if (!checkAmountOfBetting()) {
+                Log.i("check betting amount", Boolean.toString(checkAmountOfBetting()));
+                return;
+            }
+
+            for (Car car : cars) {
+                car.getCheckBoxContainer().setEnabled(false);
+                car.getCheckBox().setEnabled(false);
+                car.getEtAmountForCar().setEnabled(false);
+            }
             btnStart.setEnabled(false);
 
             Collections.shuffle(cars);
@@ -173,12 +215,45 @@ public class RaceActivity extends AppCompatActivity {
             }, 1600);
 
             new Handler().postDelayed(() -> {
+                TextView txtCoins = findViewById(R.id.txtCoins);
+                String coinsText = txtCoins.getText().toString();
+                int currentCoins = Integer.parseInt(coinsText.replaceAll("[^0-9]", ""));
+                int changedAmount = 0;
+                boolean atLeastOneWin = false;
+                if (rank1.getCheckBox().isChecked()) {
+                    int betAmount = Integer.parseInt(rank1.getEtAmountForCar().getText().toString());
+                    currentCoins += betAmount;
+                    changedAmount += betAmount;
+                    atLeastOneWin = true;
+                }
+
+                if (rank2.getCheckBox().isChecked()) {
+                    int betAmount = Integer.parseInt(rank2.getEtAmountForCar().getText().toString());
+                    currentCoins -= betAmount;
+                    changedAmount -= betAmount;
+                }
+
+                if (rank3.getCheckBox().isChecked()) {
+                    int betAmount = Integer.parseInt(rank3.getEtAmountForCar().getText().toString());
+                    currentCoins -= betAmount;
+                    changedAmount -= betAmount;
+                }
+
+                txtCoins.setText("Coins: " + currentCoins);
+
+                String username = getIntent().getStringExtra("USERNAME");
+                SharedPreferences prefs = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putInt(getCoinsKey(username), currentCoins);
+                editor.apply();
+
                 AlertDialog.Builder builder = new AlertDialog.Builder(RaceActivity.this);
 
                 String message =
                         rank1.getName() + " is the 1st racer!\n"
                                 + rank2.getName() + " is the 2nd racer!\n"
-                                + rank3.getName() + " is the 3rd racer!\n";
+                                + rank3.getName() + " is the 3rd racer!\n"
+                                + (changedAmount < 0 ? " - $" : " + $") + Math.abs(changedAmount) + "\nYour new balance is $" + currentCoins + ".";
 
                 TextView titleTextView = new TextView(RaceActivity.this);
                 titleTextView.setText("Round done!");
@@ -203,12 +278,65 @@ public class RaceActivity extends AppCompatActivity {
             }, 1600);
         });
     }
-
+    private void updateBtnStartEnabled() {
+        boolean status = false;
+        for (Car car : cars) {
+            status = status || car.getCheckBox().isChecked();
+        }
+        btnStart.setEnabled(status);
+    }
     private void reset () {
         btnStart.setText("START");
         btnStart.setEnabled(true);
         for (Car car : cars) {
+            car.getCheckBox().setEnabled(true);
+            car.getCheckBox().setChecked(false);
             car.getSeekBar().setProgress(0);
         }
+    }
+
+    private boolean checkAmountOfBetting() {
+        if (!checkBalanceForTotalBetting(cars)) {
+            Toast.makeText(this, "Not enough balance for the total betting amount!", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        for (Car car : cars) {
+            if (car.getCheckBox().isChecked()) {
+                String amountStr = car.getEtAmountForCar().getText().toString();
+                if (amountStr.isEmpty()) {
+                    car.getEtAmountForCar().setError(REQUIRE);
+                    return false;
+                } else {
+                    int amount = Integer.parseInt(amountStr);
+                    if (amount < 1 || amount > 100000000) {
+                        Toast.makeText(this, "Please enter a betting amount for " + car.getName().toLowerCase() + " between 1 and 100,000,000!", Toast.LENGTH_SHORT).show();
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
+    public boolean checkBalanceForTotalBetting(List<Car> cars) {
+        int totalBettingAmount = 0;
+        TextView txtCoins = findViewById(R.id.txtCoins);
+        String coinsText = txtCoins.getText().toString();
+        int currentCoins = Integer.parseInt(coinsText.replaceAll("[^0-9]", ""));
+
+        for (Car car : cars) {
+            if (car.getCheckBox().isChecked()) {
+                String amountStr = car.getEtAmountForCar().getText().toString();
+                if (amountStr.isEmpty()) {
+                    car.getEtAmountForCar().setError(REQUIRE);
+                    return false;
+                } else {
+                    int amount = Integer.parseInt(amountStr);
+                    totalBettingAmount += amount;
+                }
+            }
+        }
+
+        return totalBettingAmount <= currentCoins;
     }
 }
