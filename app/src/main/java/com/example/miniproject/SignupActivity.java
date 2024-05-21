@@ -19,12 +19,15 @@ public class SignupActivity extends AppCompatActivity {
     private EditText txtPassword;
     private EditText txtConfirmPassword;
     private Button btnSignup;
+
+    private Button btnLogin;
     private ArrayList<Users> listUsers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+
 
         txtUsername = findViewById(R.id.txtUsername);
         txtPassword = findViewById(R.id.txtPassword);
@@ -33,17 +36,26 @@ public class SignupActivity extends AppCompatActivity {
 
         listUsers = (ArrayList<Users>) getIntent().getSerializableExtra("USER_LIST");
 
+
         btnSignup.setOnClickListener(v -> {
             if (validateInput()) {
                 String username = txtUsername.getText().toString().trim();
                 String password = txtPassword.getText().toString().trim();
                 listUsers.add(new Users(username, password, 0));
                 Toast.makeText(SignupActivity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
-                intent.putExtra("USER_LIST", listUsers);
-                startActivity(intent);
+
+                Intent loginIntent = new Intent(SignupActivity.this, LoginActivity.class);
+                startActivity(loginIntent);
                 finish();
             }
+        });
+
+        btnLogin = findViewById(R.id.btnLogin);
+
+        btnLogin.setOnClickListener(v -> {
+            Intent loginIntent = new Intent(SignupActivity.this, LoginActivity.class);
+            startActivity(loginIntent);
+            finish();
         });
     }
 
@@ -65,7 +77,6 @@ public class SignupActivity extends AppCompatActivity {
         if (existUser(username, txtUsername)) {
             Toast.makeText(SignupActivity.this, "Username already exists", Toast.LENGTH_SHORT).show();
             return false;
-
         }
         return true;
     }
