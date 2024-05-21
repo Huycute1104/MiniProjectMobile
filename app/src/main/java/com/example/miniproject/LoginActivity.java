@@ -34,14 +34,13 @@ public class LoginActivity extends AppCompatActivity {
         listUsers.add(new Users("tri", "123", getCoinsForUser("tri")));
         listUsers.add(new Users("phuoc", "123", getCoinsForUser("phuoc")));
         listUsers.add(new Users("nhat", "123", getCoinsForUser("nhat")));
+        listUsers.add(new Users("hai", "123", getCoinsForUser("hai")));
 
 //        listUsers.add(new Users("huy", "123", 1000));
 //        listUsers.add(new Users("tri", "123", 1000));
 //        listUsers.add(new Users("phuoc", "123", 1000));
 //        listUsers.add(new Users("nhat", "123", 1000));
-        if (getIntent().getSerializableExtra("USER_LIST") != null) {
-            listUsers = (ArrayList<Users>) getIntent().getSerializableExtra("USER_LIST");
-        }
+
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,9 +65,6 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Handle create account action here
                 Toast.makeText(LoginActivity.this, "Create account clicked", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
-                intent.putExtra("USER_LIST", listUsers);
-                startActivity(intent);
             }
         });
     }

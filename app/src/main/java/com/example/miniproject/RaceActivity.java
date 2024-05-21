@@ -3,6 +3,7 @@ package com.example.miniproject;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -16,11 +17,18 @@ public class RaceActivity extends AppCompatActivity {
     private AlertDialog addCoinsDialog;
     Button btnLogout;
     Button btnAddmore;
+    private MediaPlayer mediaPlayer;
+    private boolean isPlaying = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_race);
+
+        Button btnToggleMusic = findViewById(R.id.btnToggleMusic);
+
+        // Khởi tạo MediaPlayer với file âm thanh trong thư mục raw
+        mediaPlayer = MediaPlayer.create(this, R.raw.sound);
 
         String username = getIntent().getStringExtra("USERNAME");
         int coins = getIntent().getIntExtra("COINS", 0);
@@ -51,6 +59,28 @@ public class RaceActivity extends AppCompatActivity {
             }
         });
 
+        btnToggleMusic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isPlaying) {
+                    mediaPlayer.pause();
+                    isPlaying = false;
+                } else {
+                    mediaPlayer.start();
+                    isPlaying = true;
+                }
+            }
+        });
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mediaPlayer != null) {
+            mediaPlayer.release();
+            mediaPlayer = null;
+        }
     }
 
     private void showAddCoinsDialog() {
