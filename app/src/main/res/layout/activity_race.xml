@@ -71,7 +71,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:padding="12dp"
-            android:background="#3ef"
+            android:background="#FFFFFF"
             >
             <TextView
                 android:layout_width="match_parent"
@@ -80,7 +80,7 @@
                 android:textSize="16dp"
                 android:textStyle="bold"
                 android:textAlignment="center"
-                android:textColor="#EFA861"
+                android:textColor="@color/black"
                 />
             <SeekBar
                 android:id="@+id/sbCar1"
