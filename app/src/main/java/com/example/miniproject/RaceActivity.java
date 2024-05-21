@@ -5,6 +5,7 @@ import android.animation.ObjectAnimator;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -40,6 +41,7 @@ public class RaceActivity extends AppCompatActivity {
     Button btnAddmore;
     private final String REQUIRE = "Require";
 
+    private MediaPlayer mediaPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +59,9 @@ public class RaceActivity extends AppCompatActivity {
 
         btnLogout = findViewById(R.id.btnLogOut);
         btnAddmore = findViewById(R.id.btnAddMore);
+        mediaPlayer = MediaPlayer.create(this, R.raw.asphalt8music);
+        mediaPlayer.setLooping(true);
+        mediaPlayer.start();
 
         map();
         init();
