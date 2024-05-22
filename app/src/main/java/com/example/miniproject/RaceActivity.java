@@ -28,8 +28,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class RaceActivity extends AppCompatActivity {
+import nl.dionsegijn.konfetti.xml.KonfettiView;
 
+public class RaceActivity extends AppCompatActivity {
+    public AnimationCustom anim = new AnimationCustom();
+    public KonfettiView kftView;
     private String username;
     private TextView txtUsername;
     private TextView txtBalance;
@@ -57,6 +60,8 @@ public class RaceActivity extends AppCompatActivity {
 
         btnLogout = findViewById(R.id.btnLogOut);
         btnAddmore = findViewById(R.id.btnAddMore);
+
+        kftView = findViewById(R.id.kftView);
 
         map();
         init();
@@ -209,6 +214,8 @@ public class RaceActivity extends AppCompatActivity {
                 Toast.makeText(this, rank1.getName() + " is the 3rd racer!", Toast.LENGTH_SHORT).show();
             }, 1500);
 
+
+
             new Handler().postDelayed(() -> {
                 btnStart.setText("RESET");
                 btnStart.setEnabled(true);
@@ -272,6 +279,7 @@ public class RaceActivity extends AppCompatActivity {
                 AlertDialog alertDialog = builder.create();
                 new Handler().postDelayed(() -> {
                     alertDialog.show();
+                    anim.CongratAnimation(kftView,this);
                 }, 1200);
 
 
