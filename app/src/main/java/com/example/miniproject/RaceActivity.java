@@ -20,7 +20,6 @@ import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.miniproject.Models.Car;
@@ -40,9 +39,8 @@ public class RaceActivity extends AppCompatActivity {
     Button btnLogout;
     Button btnAddmore;
     private MediaPlayer mediaPlayer;
-    private boolean isPlaying = false;
     private final String REQUIRE = "Require";
-
+    private boolean isPlaying = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +63,7 @@ public class RaceActivity extends AppCompatActivity {
 
         btnLogout = findViewById(R.id.btnLogOut);
         btnAddmore = findViewById(R.id.btnAddMore);
+        mediaPlayer.start();
 
         map();
         init();
