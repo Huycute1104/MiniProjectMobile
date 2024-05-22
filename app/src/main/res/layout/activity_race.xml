@@ -16,6 +16,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/btnToggleMusic"
+        android:layout_width="120dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="8dp"
+        android:backgroundTint="#39A7FF"
+        android:text="Sound"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

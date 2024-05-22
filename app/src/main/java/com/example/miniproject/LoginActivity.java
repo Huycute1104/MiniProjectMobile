@@ -34,6 +34,7 @@ public class LoginActivity extends AppCompatActivity {
         listUsers.add(new Users("tri", "123", getCoinsForUser("tri")));
         listUsers.add(new Users("phuoc", "123", getCoinsForUser("phuoc")));
         listUsers.add(new Users("nhat", "123", getCoinsForUser("nhat")));
+        listUsers.add(new Users("hai", "123", getCoinsForUser("hai")));
 
 //        listUsers.add(new Users("huy", "123", 1000));
 //        listUsers.add(new Users("tri", "123", 1000));
