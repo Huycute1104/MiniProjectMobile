@@ -28,8 +28,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class RaceActivity extends AppCompatActivity {
+import nl.dionsegijn.konfetti.xml.KonfettiView;
 
+public class RaceActivity extends AppCompatActivity {
+    public AnimationCustom anim = new AnimationCustom();
+    public KonfettiView kftView;
     private String username;
     private TextView txtUsername;
     private TextView txtBalance;
