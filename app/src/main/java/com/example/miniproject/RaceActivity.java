@@ -18,7 +18,7 @@ public class RaceActivity extends AppCompatActivity {
     Button btnLogout;
     Button btnAddmore;
     private MediaPlayer mediaPlayer;
-    private boolean isPlaying = false;
+    private boolean isPlaying = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +41,7 @@ public class RaceActivity extends AppCompatActivity {
 
         btnLogout = findViewById(R.id.btnLogOut);
         btnAddmore = findViewById(R.id.btnAddMore);
+        mediaPlayer.start();
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
