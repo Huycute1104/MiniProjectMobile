@@ -68,6 +68,8 @@ public class RaceActivity extends AppCompatActivity {
         btnAddmore = findViewById(R.id.btnAddMore);
         mediaPlayer.start();
 
+        kftView = findViewById(R.id.kftView);
+
         map();
         init();
 
@@ -241,6 +243,8 @@ public class RaceActivity extends AppCompatActivity {
                 Toast.makeText(this, rank1.getName() + " is the 3rd racer!", Toast.LENGTH_SHORT).show();
             }, 1500);
 
+
+
             new Handler().postDelayed(() -> {
                 btnStart.setText("RESET");
                 btnStart.setEnabled(true);
@@ -304,6 +308,7 @@ public class RaceActivity extends AppCompatActivity {
                 AlertDialog alertDialog = builder.create();
                 new Handler().postDelayed(() -> {
                     alertDialog.show();
+                    anim.CongratAnimation(kftView,this);
                 }, 1200);
 
 
