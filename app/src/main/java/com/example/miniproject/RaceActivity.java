@@ -39,7 +39,7 @@ public class RaceActivity extends AppCompatActivity {
     private List<Car> cars;
     private Button btnStart;
     private AlertDialog addCoinsDialog;
-    Button btnLogout;
+    Button btnLogout,btnTutorial;
     Button btnAddmore;
     private MediaPlayer mediaPlayer;
     private final String REQUIRE = "Require";
@@ -64,6 +64,7 @@ public class RaceActivity extends AppCompatActivity {
         TextView txtCoins = findViewById(R.id.txtCoins);
         txtCoins.setText("Coins: " + coins);
 
+        btnTutorial = findViewById(R.id.btnTutorial);
         btnLogout = findViewById(R.id.btnLogOut);
         btnAddmore = findViewById(R.id.btnAddMore);
         mediaPlayer.start();
@@ -73,6 +74,13 @@ public class RaceActivity extends AppCompatActivity {
         map();
         init();
 
+        btnTutorial.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), TutorialActivity.class);
+                startActivity(intent);
+            }
+        });
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
